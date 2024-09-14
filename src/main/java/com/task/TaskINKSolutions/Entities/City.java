@@ -22,4 +22,8 @@ public class City {
     private String name;
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<News> newsFromCity = new ArrayList<>();
+
+    public void addNews(News news){
+        newsFromCity.add(news);
+    }
 }
