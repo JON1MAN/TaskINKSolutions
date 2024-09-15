@@ -41,5 +41,9 @@ public class CityService {
         city.addNews(news);
     }
 
+    public City createCity(City city){
+        return cityRepository.save(city);
+    }
+
 
 }
