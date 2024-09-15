@@ -18,4 +18,8 @@ public class NewsService {
                         "News not found with id: " + id));
     }
 
+    public News createNews(News news){
+        return newsRepository.save(news);
+    }
+
 }
