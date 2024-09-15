@@ -22,4 +22,8 @@ public class News {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
+    @ManyToOne
+    @JoinColumn(name = "state_id", nullable = false)
+    private State state;
+
 }
