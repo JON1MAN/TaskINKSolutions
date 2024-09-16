@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -25,5 +27,7 @@ public class News {
     @ManyToOne
     @JoinColumn(name = "state_id", nullable = false)
     private State state;
+
+    private Date date;
 
 }
