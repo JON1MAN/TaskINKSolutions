@@ -17,8 +17,11 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String author;
     private String title;
     private String description;
+    private String url;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
@@ -27,7 +30,5 @@ public class News {
     @ManyToOne
     @JoinColumn(name = "state_id", nullable = false)
     private State state;
-
-    private Date date;
 
 }
