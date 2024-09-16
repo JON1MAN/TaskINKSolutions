@@ -22,4 +22,8 @@ public class NewsService {
         return newsRepository.save(news);
     }
 
+    public void createNewsFromGPTResponse(String[] fields){
+        
+    }
+
 }
