@@ -19,7 +19,10 @@ public class State {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long stateId;
     String name;
-    @OneToMany(mappedBy = "state", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "state", cascade = CascadeType.ALL)
     List<News> newsFromState = new ArrayList<>();
 
+    public void addNews(News news){
+        this.newsFromState.add(news);
+    }
 }
