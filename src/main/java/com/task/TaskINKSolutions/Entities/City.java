@@ -23,10 +23,10 @@ public class City {
     @ManyToOne
     @JoinColumn(name = "state_id", nullable = false)
     State state;
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<News> newsFromCity = new ArrayList<>();
 
     public void addNews(News news){
-        newsFromCity.add(news);
+        this.newsFromCity.add(news);
     }
 }
