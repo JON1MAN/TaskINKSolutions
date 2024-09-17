@@ -18,11 +18,30 @@ public class CityService {
 
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private StateService stateService;
 
     public City findCityById(Long id){
         return cityRepository.findCityById(id)
                 .orElseThrow(() -> new CityNotFoundException(
                         "City not found with id: " + id));
+    }
+
+    public City findCityByName(String name){
+        return cityRepository.findCityByName(name)
+                .orElseThrow(() -> new CityNotFoundException(
+                        "City not found with name: " + name));
+    }
+
+    public City findCityByNameAndState(String cityName, String stateName){
+        City city = cityRepository.findFirstCityByNameAndState(cityName, stateName);
+        if(city == null){
+            city = new City();
+            city.setName(cityName);
+            city.setState(stateService.findStateByName(stateName));
+            return createCity(city);
+        }
+        return city;
     }
 
     public List<News> getAllNewsFromCity(Long id){
