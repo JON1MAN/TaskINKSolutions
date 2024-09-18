@@ -51,20 +51,25 @@ public class TaskInkSolutionsApplication {
 	}
 
 	/*@EventListener(ApplicationReadyEvent.class)
+	public void getFreshNews(){
+		newsService.fetchNewsForAllStates();
+	}*/
+
+	@EventListener(ApplicationReadyEvent.class)
 	public void parseDataSetOfNews() {
 
-		String file = "src/main/resources/static/usnews2.json";
+		String file = "src/main/resources/static/usnews3.json";
 		try{
-			String jasonContent = "src/main/resources/static/usnews.json";
+			String jasonContent = "src/main/resources/static/usnews3.json";
 			String fileContent = new String(Files.readAllBytes(Paths.get(jasonContent)));
 
 			JSONObject jsonObject = new JSONObject(fileContent);
 			//////////////////////
-			System.out.println(jsonObject);
+			//System.out.println(jsonObject);
 
 			JSONArray jsonArray = jsonObject.getJSONArray("articles");
 
-			for(int i = 96; i < jsonArray.length(); i++){
+			for(int i = 4700; i < jsonArray.length(); i++){
 				//////////////////////
 				System.out.println("ARTICLE NUMBER : " + i);
 
@@ -76,6 +81,9 @@ public class TaskInkSolutionsApplication {
 				String date = article.optString("date", LocalDate.now().toString());
 				String content = article.optString("content", " ");
 
+				if(title.equals("[Removed]") || description.equals("[Removed]") || content.equals("[Removed")){
+					continue;
+				}
 				String inputText = String.format
 						(
 								"%s\n%s\n%s\n%s\n%s\n",
@@ -87,9 +95,6 @@ public class TaskInkSolutionsApplication {
 						);
 				//////////////////////
 				System.out.println(inputText);
-
-				State state = stateService.findStateByName("GLOBAL");
-				System.out.println(state.getName());
 
 				JSONObject gptResponse = new JSONObject(
 						gptFilterService.textAnalysis(inputText));
@@ -118,7 +123,7 @@ public class TaskInkSolutionsApplication {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-	}*/
+	}
 //	@EventListener(ApplicationReadyEvent.class)
 //	public void parseDataSetOfCities() {
 //

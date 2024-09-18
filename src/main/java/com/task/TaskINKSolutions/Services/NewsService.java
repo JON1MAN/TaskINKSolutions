@@ -5,9 +5,19 @@ import com.task.TaskINKSolutions.Entities.News;
 import com.task.TaskINKSolutions.Entities.State;
 import com.task.TaskINKSolutions.Exceptions.NewsNotFoundException;
 import com.task.TaskINKSolutions.Repositories.NewsRepository;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -69,6 +79,45 @@ public class NewsService {
 
             return news;
         }
+    }
+
+    public JSONArray fetchNewsForAllStates(){
+        List<State> states = stateService.getAllStates().stream()
+                .skip(5)
+                .toList();
+
+        final String NEWS_API_KEY = "29da19b98724437ebbacc2833282387f";
+        RestTemplate restTemplate = new RestTemplate();
+        JSONArray usnews = new JSONArray();
+
+        for(State state : states){
+            String stateName = state.getName();
+            if(stateName.equals("GLOBAL")){
+                break;
+            }
+            String URL = String.format("https://newsapi.org/v2/everything?q=%s CITY&apiKey=%s",
+                    stateName,
+                    NEWS_API_KEY);
+            ResponseEntity<String> response =restTemplate
+                    .exchange(URL, HttpMethod.GET, null, String.class);
+
+            if(response.getStatusCode() == HttpStatus.OK){
+                JSONObject jsonResponse = new JSONObject(response.getBody());
+                JSONArray jsonArray = jsonResponse.getJSONArray("articles");
+                usnews.putAll(jsonArray);
+            }
+
+        }
+
+        File file = new File("src/main/resources/static/usnews3.json");
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            bufferedWriter.write(usnews.toString());
+        } catch (IOException E){
+            E.printStackTrace();
+        }
+
+        return usnews;
+
     }
 
 }
