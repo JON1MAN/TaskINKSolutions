@@ -50,7 +50,7 @@ public class TaskInkSolutionsApplication {
 		SpringApplication.run(TaskInkSolutionsApplication.class, args);
 	}
 
-	@EventListener(ApplicationReadyEvent.class)
+	/*@EventListener(ApplicationReadyEvent.class)
 	public void parseDataSetOfNews() {
 
 		String file = "src/main/resources/static/usnews2.json";
@@ -118,7 +118,7 @@ public class TaskInkSolutionsApplication {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-	}
+	}*/
 //	@EventListener(ApplicationReadyEvent.class)
 //	public void parseDataSetOfCities() {
 //
