@@ -29,7 +29,7 @@ public class NewsController {
     @Autowired
     private GeolocationService geolocationService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://main.d21su28ziqsjos.amplifyapp.com")
     @PostMapping()
     public ResponseEntity<ResponseDTO> getNewsFromCityStateGlobal(
             @RequestParam("latitude") String latitude,
