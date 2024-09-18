@@ -1,6 +1,7 @@
 package com.task.TaskINKSolutions.Services;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,8 @@ import java.util.Locale;
 @Service
 public class GeolocationService {
 
-    private final String GOOGLE_API_KEY = "AIzaSyAyKABWechfSlzZEg4GF4yQ5Rob7QkYiZ8";
+    @Value("${GEOLOCATION_GOOGLE_API_KEY}")
+    private String GOOGLE_API_KEY;
 
     public String getCityAndState(String latitude, String longitude){
         RestTemplate restTemplate = new RestTemplate();
