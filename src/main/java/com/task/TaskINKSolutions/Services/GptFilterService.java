@@ -2,6 +2,7 @@ package com.task.TaskINKSolutions.Services;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,8 @@ import org.springframework.http.HttpHeaders;
 
 @Service
 public class GptFilterService {
-    private final String OPENAI_API_KEY = "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";
+    @Value("${OPENAI_API_KEY}")
+    private String KEY;
     private final String OPENAI_URL =  "https://api.openai.com/v1/chat/completions";
 
     public String textAnalysis(String inputText){
@@ -22,7 +24,7 @@ public class GptFilterService {
                 can be LOCAL OR GLOBAL
                 LOCAL are news from US cities and states
                 GLOBAL - global news
-                2) if typeOfNews = LOCAL, determine name of city and state
+                2) if typeOfNews = LOCAL, determine name of city and state (full name of state and city) for exp not D.C. but DISTRICT OF COLUMBIA
                  3) if typeOfNews = GLOBAL, set city = determine full name of city (if you didn't find out name, set GLOBAL), state = GLOBAL
                 
                 4) Give response
@@ -36,7 +38,7 @@ public class GptFilterService {
 
         //Headers
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + OPENAI_API_KEY);
+        headers.set("Authorization", "Bearer " + KEY);
         headers.set("Content-Type", "application/json");
 
         //Payload
