@@ -74,4 +74,9 @@ public class NewsController {
         return response;
     }
 
+    @GetMapping("/")
+    public ResponseEntity<String> index(){
+        return ResponseEntity.ok("Cool");
+    }
+
 }
