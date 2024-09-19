@@ -55,7 +55,7 @@ public class TaskInkSolutionsApplication {
 		newsService.fetchNewsForAllStates();
 	}*/
 
-	@EventListener(ApplicationReadyEvent.class)
+	/*@EventListener(ApplicationReadyEvent.class)
 	public void parseDataSetOfNews() {
 
 		String file = "src/main/resources/static/usnews3.json";
@@ -123,7 +123,7 @@ public class TaskInkSolutionsApplication {
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
-	}
+	}*/
 //	@EventListener(ApplicationReadyEvent.class)
 //	public void parseDataSetOfCities() {
 //
